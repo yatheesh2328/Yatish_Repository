@@ -1,0 +1,23 @@
+import re
+email_data = "yatish23 <yatish@gmail.com>, yathee28 <yathee@gmail.com>, YATISH <YATISH@gmail.com>, YATHEESH <YATHEESH@gmail.com>"
+result = re.findall("yat[i, h]", email_data)
+print(result)
+result = re.findall("yat[a-z]", email_data)
+print(result)
+result = re.findall("yat[a-z]+", email_data)
+print(result)
+result = re.findall("yat[a-z]+", email_data, re.IGNORECASE)
+print(result)
+result = re.findall("yat[a-z]+[0-9]+", email_data, re.IGNORECASE)
+print(result)
+result = re.search("yat[a-z]+[0-9]+", email_data, re.IGNORECASE)
+print(result)
+
+result = re.search("[A-Za-z0-9_]+@[A-Za-z0-9_]+\\.[A-Za-z0-9_]+", email_data)
+print(result)
+result = re.findall("[A-Za-z0-9_]+@[A-Za-z0-9_]+\\.[A-Za-z0-9_]+", email_data)
+print(result)
+result = re.findall(r"\w+@\w+\.\w+", email_data)
+print(result)
+result = re.search(r"\w+@\w+\.\w+", email_data)
+print(result)

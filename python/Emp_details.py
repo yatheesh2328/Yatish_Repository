@@ -1,0 +1,10 @@
+name=input("enter the name of the emp \n")
+id=input("enter the emp id \n")
+company=input("enter the company name \n")
+role=input("enter the role of the employee \n")
+print("emp name is {} and id is {}".format("yatish",123))
+print("today's date is {} and day is {}".format('01/29/2024',"monday"))
+print("---EMPLOYEE DETAILS---")
+print(f" employee name is : {name} \n employee is : {id} \n employee role is : {role} \n company name is : {company} ")
+print(f"enterred name is {name}")
+
