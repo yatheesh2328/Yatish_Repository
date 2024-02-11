@@ -1,0 +1,25 @@
+---
+- name: install and deploy tomcat
+  hosts: all
+  become: true
+  tasks:
+    - name: updating to latest updates
+      shell: 
+        cmd: apt update
+      
+    - name: installing java
+      shell:
+        cmd: apt install default-jre -y
+      
+    - name: downloading tomcat
+      get_url: 
+        url: https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.98/bin/apache-tomcat-8.5.98.tar.gz
+        dest: /opt/
+    
+    - name: extracting tomcat
+      shell: 
+        cmd: cd /opt && tar -zvxf apache-tomcat-8.5.98.tar.gz
+
+    - name: starting tomcat
+      shell:
+        cmd: /opt/apache-tomcat-8.5.98/bin/startup.sh
