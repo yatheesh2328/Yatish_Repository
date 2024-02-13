@@ -4,8 +4,8 @@ pipeline {
   stages {
     stage('checkout stage') {
       steps {
-        sh 'rm -rf Ansible_project'
-        sh 'git clone https://github.com/tarundanda147/prome.git'
+        sh 'rm -rf tomcatt'
+        sh 'git clone https://github.com/yatheesh2328/Yatish_Repository/ansible/tomcat.git'
       }
     }
     stage('running playbook') {
