@@ -22,6 +22,9 @@ pipeline {
                     sonar()
                 }
             }
+         stage('deploy'){
+             steps {
+                 sh 'scp /home
             }
         }
     }
