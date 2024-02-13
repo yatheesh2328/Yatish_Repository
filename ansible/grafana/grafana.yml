@@ -1,3 +1,6 @@
+- hosts: java
+  become: true
+  tasks:
 - name: adding_key
   apt_key:
     url: "https://packages.grafana.com/gpg.key"
