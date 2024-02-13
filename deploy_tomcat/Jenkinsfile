@@ -1,0 +1,17 @@
+pipeline {
+  agent any
+  
+  stages {
+    stage('checkout stage') {
+      steps {
+        sh 'rm -rf tomcatt'
+        sh 'git clone https://github.com/yatheesh2328/Yatish_Repository/ansible.git'
+      }
+    }
+    stage('running playbook') {
+      steps {
+        sh 'ansible-playbook -i hosts tomcat.yml'
+      }
+    }
+  }
+}
