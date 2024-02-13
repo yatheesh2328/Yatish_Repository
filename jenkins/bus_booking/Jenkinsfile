@@ -11,6 +11,7 @@ pipeline {
         stage('build') {
             steps {
                 script {
+                    sh 'mvn --version'
                     sh 'mvn clean install'
                 }
             }
@@ -22,9 +23,6 @@ pipeline {
                     sonar()
                 }
             }
-         stage('deploy'){
-             steps {
-                 sh 'scp /home
             }
         }
     }
