@@ -14,9 +14,6 @@ pipeline {
                     sh 'mvn clean install'
                 }
             }
-        stage('Run JAR locally')
-        steps {
-            sh '
         stage('Sonarqube Scan') {
             steps {
             withSonarQubeEnv('sonar'){
