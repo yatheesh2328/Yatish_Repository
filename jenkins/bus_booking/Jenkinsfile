@@ -10,12 +10,13 @@ pipeline {
 
         stage('build') {
             steps {
-                script {
                     sh 'mvn --version'
                     sh 'mvn clean install'
                 }
             }
-        }
+        stage('Run JAR locally')
+        steps {
+            sh '
         stage('Sonarqube Scan') {
             steps {
             withSonarQubeEnv('sonar'){
