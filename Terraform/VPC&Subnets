@@ -50,6 +50,7 @@ resource "aws_instance" "demo1" {
     instance_type = "t2.micro"
     subnet_id = aws_subnet.subnet-1.id # attribute refrencing
     vpc_security_group_ids = [aws_security_group.TF-SG.id] # attribute refrencing
+    # user_data = file("sonarqube.sh")
 
     tags = {
         Name = "instance-01"
