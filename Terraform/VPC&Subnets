@@ -1,38 +1,57 @@
 provider "aws" {
-  region = "us-east-1"
+region = "ap-south-1"
 }
 
-data "aws_availability_zones" "AZblock" {
-    state = "available"
+resource "aws_vpc" "vpc-01" {
+    cidr_block = "192.168.0.0/16"
+  tags = {
+    Name = "MyVPC-Yatish"
+  }
 }
 
-variable "vpc_cidr" {
-    type = string
-    default = "192.168.0.0/24"
-}
-
-variable "subnet_cidr" {
-    type = list(string)
-    default = ["192.168.0.0/25", "192.168.0.128/25"]
-}
-
-resource "aws_vpc" "vpc-dev" {
-    cidr_block = var.vpc_cidr
+resource "aws_subnet" "subnet-1" {
+    vpc_id = aws_vpc.vpc-01.id
+    cidr_block = "192.168.0.0/21"
     tags = {
-        Name = "YatishVPC"
+      Name = "Private-subnet"
     }
+  
 }
-
-resource "aws_subnet" "public" {
-    count             = length(var.subnet_cidr)
-    vpc_id            = aws_vpc.vpc-dev.id
-    cidr_block        = var.subnet_cidr[count.index]
-    availability_zone = data.aws_availability_zones.AZblock.names[count.index]
+resource "aws_subnet" "subnet-2" {
+    vpc_id = aws_vpc.vpc-01.id # attribute refrencing
+    cidr_block = "192.168.8.0/21"
     tags = {
-        Name = "subnet-${count.index + 1}"
+      Name = "Public-subnet"
     }
-}
+} 
+resource "aws_security_group" "TF-SG" {
+    vpc_id = aws_vpc.vpc-01.id # attribute refrencing
+    description = "allowing inbound and outbound traffic"
+    tags = {
+      Name = "Yatish-SG"
+    }
 
-output "Mysubnets" {
-    value = aws_subnet.public[*].id
+    ingress {
+        from_port = 22
+        to_port = 22
+        protocol = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+
+    ingress  {
+        from_port = 443
+        to_port = 443
+        protocol = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    } 
 }
+resource "aws_instance" "demo1" {
+    ami = "ami-0a1b648e2cd533174"
+    instance_type = "t2.micro"
+    subnet_id = aws_subnet.subnet-1.id # attribute refrencing
+    vpc_security_group_ids = [aws_security_group.TF-SG.id] # attribute refrencing
+
+    tags = {
+        Name = "instance-01"
+    }  
+}   
